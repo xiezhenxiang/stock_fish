@@ -39,18 +39,22 @@ def move_window(event):
 
 def refresh():
     while True:
-        list_data3 = []
-        list_data4 = []
-        for e in codes:
-            stock = current_day_stock(e)
-            list_data3.append(str(stock.price))
-            list_data4.append(str(stock.percent))
-        for i, item in enumerate(list_data3):
-            col_box3.delete(i)
-            col_box3.insert(i, item)
-        for i, item in enumerate(list_data4):
-            col_box4.delete(i)
-            col_box4.insert(i, item)
+        hour = time.localtime().tm_hour
+        minute = time.localtime().tm_min
+        current_time = (str(hour) + str(minute))
+        if '0930' <= current_time <= '15:30':
+            list_data3 = []
+            list_data4 = []
+            for e in codes:
+                stock = current_day_stock(e)
+                list_data3.append(str(stock.price))
+                list_data4.append(str(stock.percent))
+            for i, item in enumerate(list_data3):
+                col_box3.delete(i)
+                col_box3.insert(i, item)
+            for i, item in enumerate(list_data4):
+                col_box4.delete(i)
+                col_box4.insert(i, item)
         time.sleep(refresh_interval)
 
 
@@ -83,7 +87,7 @@ if __name__ == "__main__":
     # 窗口居中，获取屏幕尺寸以计算布局参数，使窗口居屏幕右下角
     screenwidth = window.winfo_screenwidth()
     screenheight = window.winfo_screenheight()
-    size_geo = '%dx%d+%d+%d' % (width, height, (screenwidth - width - 250), (screenheight - height))
+    size_geo = '%dx%d+%d+%d' % (width, height, (screenwidth - width - 155), (screenheight - height - 33))
     # 设置窗口大小和位置
     window.geometry(size_geo)
 
@@ -99,11 +103,11 @@ if __name__ == "__main__":
         col_data4.append(str(stock.percent))
 
     # 创建文本控件
-    col_box1 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="Snow3")
+    col_box1 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="#aaaaff")
 
-    col_box2 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="Snow3")
-    col_box3 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="Snow3")
-    col_box4 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="Snow3")
+    col_box2 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="#aaaaff")
+    col_box3 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="#aaaaff")
+    col_box4 = tk.Listbox(window, width=int(55), height=height, relief="ridge", background="#aaaaff")
     col_box1.place(x=0)
     col_box2.place(x=55)
     col_box3.place(x=width * 0.5)
