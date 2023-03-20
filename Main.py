@@ -55,6 +55,8 @@ def refresh():
             for i, item in enumerate(list_data4):
                 col_box4.delete(i)
                 col_box4.insert(i, item)
+        if current_time > '15:30':
+            window_off(None)
         time.sleep(refresh_interval)
 
 
