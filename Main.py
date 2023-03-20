@@ -42,7 +42,7 @@ def refresh():
         hour = time.localtime().tm_hour
         minute = time.localtime().tm_min
         current_time = (str(hour) + str(minute))
-        if '0930' <= current_time <= '15:30':
+        if '0930' <= current_time <= '1530':
             list_data3 = []
             list_data4 = []
             for e in codes:
@@ -55,7 +55,7 @@ def refresh():
             for i, item in enumerate(list_data4):
                 col_box4.delete(i)
                 col_box4.insert(i, item)
-        if current_time > '15:40':
+        if current_time > '1540':
             window_off(None)
         time.sleep(refresh_interval)
 
