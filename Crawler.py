@@ -21,7 +21,7 @@ def current_day_stock(code):
 if __name__ == "__main__":
 
     code = "000625"
-    stock = current_day_stock(1, code)
+    stock = current_day_stock(code)
 
     print(stock.code)
     print(stock.name)
