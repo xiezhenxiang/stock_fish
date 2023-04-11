@@ -83,7 +83,7 @@ def init_window():
     # 窗口居中，获取屏幕尺寸以计算布局参数，使窗口居屏幕右下角
     screenwidth = window.winfo_screenwidth()
     screenheight = window.winfo_screenheight()
-    size_geo = '%dx%d+%d+%d' % (1000, 1000, (screenwidth - 285), (screenheight - 78))
+    size_geo = '%dx%d+%d+%d' % (1000, 1000, (screenwidth - 155), (screenheight - 130))
     # 设置窗口大小和位置
     window.geometry(size_geo)
     # 鼠标右键单击
