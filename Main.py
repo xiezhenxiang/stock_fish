@@ -6,8 +6,10 @@ import time
 import tkinter as tk  # 图形界面
 
 import keyboard
+import psutil as psutil
 
 from Crawler import current_day_stock
+
 
 def refresh():
     while True:
@@ -41,8 +43,41 @@ def reload(event):
 
 
 def window_off(event):
-    window.destroy()
+    parent = psutil.Process(os.getpid())
+    kill_process_and_its_children(parent)
     sys.exit(0)
+
+
+def kill_process_and_its_children(p):
+    p = psutil.Process(p.pid)   # p might be Python's process, convert to psutil's process
+    if len(p.children())>0:
+        print('有子进程')
+        for child in p.children():
+            if hasattr(child,'children') and len(child.children())>0:
+                kill_process_and_its_children(child)
+            else:
+                kill_process(child)
+    else:
+        print('无子进程')
+    kill_process(p)
+
+
+def kill_process(p):
+    try:
+        print('正在发送terminate命令到进程:', os.getpid(), '-->', p.pid)
+        p.terminate()
+        _, alive = psutil.wait_procs([p,], timeout=0.1)    # 先等 100ms
+        if len(alive):
+            _, alive = psutil.wait_procs(alive, timeout=3.0)  # 再等 3s
+            if len(alive):
+                print('\t (R1) 很遗憾, 进程不服从terminate信号, 正在发送kill-9命令到进程:', os.getpid(), '-->', p.pid)
+                for p in alive: p.kill()
+            else:
+                print('\t (R2) 进程成功结束')
+        else:
+            print('\t (R2) 进程成功结束')
+    except Exception as e:
+        print(e)
 
 
 def command(event):
@@ -64,6 +99,7 @@ def move_window(event):
 
 def add_label(str_val, row, column):
     tk.Label(window, textvariable=str_val, font=("新罗马", 9), fg="#aaaaff", bg=window['bg']).grid(row=row, column=column, sticky="w")
+
 
 def init_window():
     # 置顶窗口
