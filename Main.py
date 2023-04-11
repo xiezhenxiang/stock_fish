@@ -98,7 +98,7 @@ def move_window(event):
 
 
 def add_label(str_val, row, column):
-    tk.Label(window, textvariable=str_val, font=("新罗马", 9), fg="#aaaaff", bg=window['bg']).grid(row=row, column=column, sticky="w")
+    tk.Label(window, textvariable=str_val, font=("新罗马", 9), fg="#3bb2c6", bg=window['bg']).grid(row=row, column=column, sticky="w")
 
 
 def init_window():
