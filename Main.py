@@ -34,7 +34,12 @@ def refresh():
 
         if current_time > '1510':
             window_off(None)
+        keyboard.add_hotkey('alt+1', window_hide, args=('From global keystroke',))
+        keyboard.add_hotkey('alt+2', window_show, args=('From global keystroke',))
+        keyboard.add_hotkey('alt+5', reload, args=('From global keystroke',))
+        keyboard.add_hotkey('alt+6', window_off, args=('From global keystroke',))
         time.sleep(refresh_interval)
+
 
 
 # 右键重新加载，重新运行本程序，重新加载config.ini
@@ -126,11 +131,6 @@ def init_window():
     window.bind("<Button-3>", command)
     # 全局热键 Alt+1
     # window.bind("<Escape>",window_hide)
-    keyboard.add_hotkey('alt+1', window_hide, args=('From global keystroke',))
-    keyboard.add_hotkey('alt+2', window_show, args=('From global keystroke',))
-    keyboard.add_hotkey('alt+5', reload, args=('From global keystroke',))
-    keyboard.add_hotkey('alt+6', window_off, args=('From global keystroke',))
-
     # 把窗口禁用掉，不允许拖动、缩放
     window.attributes("-disabled", True)
     # 鼠标拖动窗体
