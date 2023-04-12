@@ -9,7 +9,7 @@ CRAW_URL = "https://18.push2his.eastmoney.com/api/qt/stock/kline/get?secid={}.{}
 
 
 def current_day_stock(code):
-    source = 0 if str(code).startswith("000") else 1
+    source = 1 if str(code).startswith("6") else 0
     url = CRAW_URL.format(source, code)
     response = requests.get(url).text
     rs_data = json.loads(response).get("data")
